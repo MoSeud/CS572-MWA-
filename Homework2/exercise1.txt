@@ -1,0 +1,19 @@
+1. 
+setTimeout    - queues its callback to be executed after whatever in the queue.
+setImmediate  - doesn't queue its callback but schedules it to the check phase of the event loop (after I/O events).
+
+2.
+process.nextTick  - is executed right after current operation ends (blocking)
+setImmediate      - runs in the check phase of the event loop (non-blocking)
+
+3. 
+1. assert
+2. buffer
+3. crypto
+4. dsn 
+5. events
+6. http
+7. net 
+8. stream
+9. timers
+10. zlib
