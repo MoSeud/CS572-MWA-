@@ -6,41 +6,58 @@
     console.log("How many People have finished their Assignments so far".filterWords(['people','Assignments']))
 })();
 
-//filter words using Promise
-String.prototype.filterWords = function (wordsToFilter) {
-    const str = this;
+// //filter words using Promise
+String.prototype.filterWords = function (badWords) {
+    const delimiter = ' ';
+    return this.split(delimiter).map((word) => word.replace(new RegExp(badWords.join('|')), '***')).join(delimiter);
+  };
+  function filterStringWords(statement, badWords) {
     return new Promise(function (resolve, reject) {
-        resolve(str.split(' ').map((word) => { if (wordsToFilter.includes(word)) return word = "***"; else return word }).join(' '));
-    }
-    );
-};
-"How many People have finished their Assignments so far".filterWords(["people", "Assignments!"]).then(data => console.log(data));
-
-//filter words using async and await
-String.prototype.filterWords = async function (wordsToFilter) {
-    try {
-        return await this.split(' ').map((word) => { if (wordsToFilter.includes(word)) return word = "***"; else return word }).join(' ');
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-"How many People have finished their Assignments so far".filterWords(["people", "Assignments!"]).then(data => console.log(data));
-
-//filter words using Observable.
-const { Observable } = require('rxjs');
-
-String.prototype.filterWords = function (wordsToFilter) {
-    return obs$ = Observable.create((observer) => {
-        const result = this.split(' ').map((word) => { if (wordsToFilter.includes(word)) return word = "***"; else return word }).join(' ');
-        observer.next(result);
+      const result = statement.filterWords(badWords);
+      resolve(result);
     })
+      .then(function (data) {
+        console.log(data);
+      });
+  }
+  sentence=" How many People have finished their Assignments so far!"
+  filterStringWords(sentence, ['People', 'Assignments']);
+
+// // // //filter words using async and await
+String.prototype.filterWords = function (badWords) {
+    const delimiter = ' ';
+    return this.split(delimiter).map((word) => word.replace(new RegExp(badWords.join('|')), '***')).join(delimiter);
+  
+  };
+  async function filterStringWords(statement, badWords) {
+    try {
+      const result = await statement.filterWords(badWords);
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  data=" How many People have finished their Assignments so far!"
+  filterStringWords(data, ['People', 'Assignments']);
+
+
+// //filter words using Observable.
+
+String.prototype.filterWords = function (badWords){
+  const delimiter = ' ';
+  return this.split(delimiter).map((word) => word.replace(new RegExp(badWords.join('|')), '***')).join(delimiter);
+};
+function filterStringWords(statement, badWords) {
+    const {Observable} =require('rxjs');
+  return Observable.create(function(observer){
+    const result = statement.filterWords(badWords);
+    observer.next(result);
+    observer.complete();
+  });
 
 }
-
-const subsciption = "How many People have finished their Assignments so far".filterWords(["people", "Assigments!"]);
-subsciption.subscribe(
-    function (result) {
-        console.log(result);
-    }
-)
+data=" How many People have finished their Assignments so far!"
+const observable = filterStringWords(data, ['People', 'Assignments']);
+observable.subscribe((data) => {
+  console.log(data);
+});
