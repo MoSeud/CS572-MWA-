@@ -1,0 +1,17 @@
+Books=[
+    "ISBN": String,
+    "author": String,
+    "tags":[],
+    "borrowed_by":{ 
+        "student":{
+            "name":name,
+            "id":id,
+            "phone":number,
+            "email":email,
+        },
+        "borrowed_date": date,
+        "returned_date":date,
+
+    },
+
+]
