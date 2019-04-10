@@ -1,0 +1,15 @@
+
+POST http://localhost:4500/places HTTP/1.1
+Content-Type: application/json
+
+        {
+            "name": "Everybody Foods",
+            "category": "food",
+            "location": [-91.964693, 41.012279]
+        }
+        
+     
+
+        
+###
+GET http://localhost:4500/places HTTP/1.1

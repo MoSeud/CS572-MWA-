@@ -1,23 +1,24 @@
 const express = require("express");
 const cors = require("cors");
 const MongoClient = require('mongodb').MongoClient;
+const uri='mongodb://localhost:27017';
+const port= process.env.PORT ||3333;
 
-const port= process.env.PORT ||5000;
-// let collection;
+let collection;
+
+const app = express();
 
 const connectToMongo = async function() {
-    const client = new MongoClient('mongodb://localhost:27017');
+    const client = new MongoClient(uri,{useNewUrlParser:true});
     await client.connect();
-    const db = client.db('test');
+    const db = client.db('homework07');
     collection = db.collection('lectures');
 
 }
 connectToMongo();
 
-const app = express();
-app.use(cors());
 
-// fails if json is invalid
+app.use(cors());
 app.use(express.json());
 
 app.get("/lectures", async (req, res) => {
@@ -34,7 +35,7 @@ app.get("/lectures", async (req, res) => {
 
 app.get("/lectures/:id", async (req, res) => {
     try {
-        const lecture = await collection.findOne({ _id: mongo.ObjectID(req.params.id)});
+        const lecture = await collection.findOne({_id: mongo.ObjectID(req.params.id)});
         res.send(lecture);
     } catch(e) {
         console.log(e);
@@ -44,8 +45,8 @@ app.get("/lectures/:id", async (req, res) => {
 });
 
 app.post("/lectures", async (req, res) => {
-  const newItem = await collection.insert(req.body);
-  res.send(newItem);
+  const newPost = await collection.insertOne(req.body);
+  res.json(newPost);
 });
 
 app.delete("/lectures/:id", async (req, res) => {
@@ -61,8 +62,8 @@ app.delete("/lectures/:id", async (req, res) => {
 
 app.put("/lectures/:id", async (req, res) => {
     try {
-        const updatedItem = await collection.updateOne({ _id:  mongo.ObjectID(req.params.id) }, {$set: req.body });
-        res.send(updatedItem);
+        const updatedata = await collection.updateOne({ _id:  mongo.ObjectID(req.params.id) }, {$set: req.body });
+        res.send(updatedata);
     } catch(e) {
         console.log(e);
         res.send('error occured');
@@ -70,9 +71,9 @@ app.put("/lectures/:id", async (req, res) => {
 
 });
 
-app.post("/search", async (req, res) => {
+app.post("/search:q", async (req, res) => {
     try {
-        console.log(">>>",req.query.q);
+        console.log(req.query.q);
         const searchResultCursor = await collection.find({ name: { $regex: req.query.q}});
         const searchResult = await searchResultCursor.toArray();
         res.send(searchResult);

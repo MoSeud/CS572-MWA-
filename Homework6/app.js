@@ -28,6 +28,7 @@ app.get('/grades/:gid',(req,res)=>{
 app.post('/grades',(req,res)=>{
   res.setHeader('Content-Type', 'application/json');
    grades.push(req.body);
+   console.log(req.body)
    res.send(grades);
 
 });

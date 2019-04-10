@@ -7,14 +7,14 @@ GET  http://localhost:3500/grades/2 HTTP/1.1
 
 ###
 POST http://localhost:3500/grades HTTP/1.1
-
 Content-Type: application/json
+
 {
-   
     "name":"Fnan Amamnuel",
-    "Course":"MWA",
-    "Grade":"98"
+    "course":"MWA",
+    "grade":"98"
 }
+
 ###
 DELETE   http://localhost:3500/grades/1 HTTP/1.1
 

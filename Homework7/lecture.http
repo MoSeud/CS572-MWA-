@@ -1,9 +1,28 @@
 
-{
+POST http://localhost:3333/lectures HTTP/1.1
+Content-Type: application/json
 
+{
+    "name":"MWAA",
+    "Professor":"Asaad"
 }
-POST http://localhost:3500/lectures HTTP/1.1
 
 ###
 
-GET  http://localhost:3500/lectures HTTP/1.1
+GET  http://localhost:3333/lectures HTTP/1.1
+
+###
+GET  http://localhost:3333/lectures/1 HTTP/1.1
+
+###
+
+PUT   http://localhost:3333/lectures/2 HTTP/1.1
+
+###
+
+POST   http://localhost:3333/lectures/1 HTTP/1.1
+Content-Type: "application/json";
+
+{
+    "id":2,
+}

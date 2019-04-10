@@ -1,0 +1,22 @@
+Books=[
+    "ISBN": String,
+    "author": String,
+    "tags":[],
+    "borrowed_by":{ 
+        "student":{
+            "name":name,
+            "id":id,
+            "phone":number,
+            "email":email,
+        },
+        "borrowed_date": date,
+        "returned_date":date,
+
+    },
+
+]
+
+db.book.createIndex({author:1})
+db.book.createIndex({borrowed_by.borrowed_date:1})
+db.book.createIndex({borrowed_by.returned_date:1});
+db.books.createIndex({borrowed_by.student:1,author:1})
