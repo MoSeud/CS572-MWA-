@@ -14,6 +14,7 @@ class Check extends Observable {
     super();
   }
 }
+
 const checkOb = new Check();
 checkOb.on("check", resp => console.log(resp));
 checkOb.emit("check", check());

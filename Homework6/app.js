@@ -9,7 +9,7 @@ const grades=require('./grades')
  app.set('x-powered-by',false);
  app.use(express.json())//support json encoded bodies
  app.use(cors());
- app.use(logger("combined"));
+ app.use(logger("tiny"));
 
 
 app.get('/grades',(req,res)=>{
@@ -29,7 +29,7 @@ app.post('/grades',(req,res)=>{
   res.setHeader('Content-Type', 'application/json');
    grades.push(req.body);
    console.log(req.body)
-   res.send(grades);
+   res.json(grades);
 
 });
 
