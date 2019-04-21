@@ -5,7 +5,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   template: `
    <div class="counter">
    <button (click)="Decrease()">-</button>
-   <input type="text" [value]="count">
+   <input  type="text" [value]="count">
    <button (click)="Increase()">+</button>
    </div>
   `,
@@ -31,11 +31,11 @@ export class CounterComponent {
 Change: EventEmitter<number> = new EventEmitter<number>();
 
  Decrease() {
-   this.count--;
-   this.Change.emit(this.count);
+  //  this.count--;
+   this.Change.emit(this.count--);
  }
  Increase() {
-   this.count++;
-   this.Change.emit(this.count);
+  //  this.count++;
+   this.Change.emit(this.count++);
  }
 }

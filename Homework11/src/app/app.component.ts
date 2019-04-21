@@ -16,7 +16,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'Homework11';
   newCount = 0;
-  countChange(event){
+  countChange(event) {
 this.newCount = event;
   }
 }
